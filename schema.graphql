@@ -1,18 +1,43 @@
 type Author {
-    id: ID!
-    name: String!
-    nationality: String!
+  id: ID!
+  name: String!
+  nationality: String!
 }
 
-type Query{
-allAuthors: [Author!]!
-getAuthor(id:ID!):Author
+type Book {
+  id: ID!
+  title: String!
+  author: Author!
 }
 
-type Mutation{
-createAuthor(name: String!, nationality: String!): Author!
-updateAuthor(id:ID!,name:String,nationality:String): Author!
-deleteAuthor(id: ID!): Author!
+type User {
+  id: ID!
+  name: String!
+  email: String!
 }
 
+type Loan {
+  id: ID!
+  user: User!
+  book: Book!
+  dueDate: String!
+  returned: Boolean!
+}
 
+type Query {
+  allAuthors: [Author!]!
+  allBooks: [Book!]!
+  allUsers: [User!]!
+  allLoans: [Loan!]!
+  getAuthor(id: ID!): Author
+}
+
+type Mutation {
+  createAuthor(name: String!, nationality: String!): Author!
+  updateAuthor(id: ID!, name: String, nationality: String): Author!
+  deleteAuthor(id: ID!): Author!
+  createBook(title: String!, authorId: ID!): Book!
+  createUser(name: String!, email: String!): User!
+  createLoan(userId: ID!, bookId: ID!, dueDate: String!): Loan!
+  returnBook(loanId: ID!): Loan!
+}
